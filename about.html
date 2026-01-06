@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="schoollogo.png" type="image/png">
+<title>About - Royal Path Schools</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; scroll-behavior: smooth; }
+body { background-color: #f6f6f6; color:#333; overflow-x:hidden; }
+
+/* ===== HEADER ===== */
+header {
+  position:fixed;
+  top:0;
+  width:100%;
+  background:#fff;
+  z-index:1000;
+  box-shadow:0 2px 6px rgba(0,0,0,.08);
+}
+.header-inner { display:flex; justify-content:flex-start; align-items:center; padding:8px 20px; gap:20px; }
+.menu-icon { font-size:22px; cursor:pointer; }
+.logo { height:60px; }
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  position: fixed;
+  top:0;
+  left:-250px;
+  width:240px;
+  height:100%;
+  background:#0052cc; 
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+  padding-top:60px;
+  transition:left 0.3s ease;
+  z-index:9999;
+}
+.sidebar-header { text-align:center; margin-bottom:20px; }
+.sidebar-logo { max-width:80px; height:auto; border-radius:20px; }
+.sidebar a { padding:12px 16px; font-size:16px; border-bottom:1px solid rgba(255,255,255,0.15); color:#fff; display:block; }
+.sidebar a:hover {background:#003a99;}
+.sidebar.active {left:0;}
+.sidebar-auth { display:flex; justify-content:space-around; padding:12px 16px; margin-top:auto; }
+.sidebar a.login, .sidebar a.signup { flex:1; text-align:center; border-radius:18px; border:1px solid #fff; margin:0 2px; padding:6px 0; font-size:14px; }
+.sidebar a.signup { background:#fff; color:#0052cc; }
+
+/* Overlay */
+#overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.3); z-index:998; }
+#overlay.active {display:block;}
+
+/* ===== MAIN CONTENT ===== */
+.main-content { padding:80px 20px; max-width:1200px; margin:0 auto; }
+
+/* ===== FEATURES ===== */
+.features { margin-bottom:60px; }
+.features h2 { font-size:2rem; color:#0056B3; margin-bottom:20px; text-align:center; }
+.feature-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:20px; }
+.feature-card { background:#fff; border-radius:15px; padding:25px; text-align:center; box-shadow:0 5px 15px rgba(0,0,0,0.1); transition:all 0.5s ease, transform 0.5s ease; opacity:0; transform: translateY(20px); }
+.feature-card.visible { opacity:1; transform: translateY(0); }
+.feature-icon { font-size:36px; color:#004aad; margin-bottom:12px; }
+.feature-title { font-weight:600; margin-bottom:8px; font-size:1.1rem; }
+.feature-desc { font-size:0.95rem; color:#555; }
+
+/* ===== HISTORY ===== */
+.history { margin-bottom:60px; text-align:center; }
+.history h2 { font-size:2rem; color:#0056B3; margin-bottom:20px; }
+.history p { max-width:800px; margin:0 auto; font-size:1rem; line-height:1.6; color:#444; }
+
+/* ===== REVIEWS ===== */
+.reviews { margin-bottom:60px; }
+.reviews h2 { font-size:2rem; color:#0056B3; margin-bottom:20px; text-align:center; }
+.review-carousel { display:flex; gap:20px; overflow:hidden; scroll-behavior: smooth; }
+.review-card { flex:0 0 300px; background:#fff; border-radius:15px; padding:20px; text-align:center; box-shadow:0 5px 15px rgba(0,0,0,0.1); transition: transform 0.3s ease, opacity 0.3s ease; opacity:0; transform: translateY(20px); }
+.review-card.visible { opacity:1; transform: translateY(0); }
+.review-card img { width:60px; height:60px; border-radius:50%; margin-bottom:15px; }
+.review-card h4 { font-size:1.1rem; margin-bottom:10px; }
+.review-card p { font-size:0.95rem; color:#555; }
+
+/* ===== COMMENT FORM ===== */
+.comment-form { max-width:600px; margin:40px auto; background:#f6f6f6; padding:20px; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.05); }
+.comment-form h3 { margin-bottom:15px; color:#0056B3; }
+.comment-form input, .comment-form textarea { width:100%; padding:10px; margin-bottom:10px; border-radius:8px; border:1px solid #ccc; }
+.comment-form button { background:#0056B3; color:#fff; padding:10px 20px; border:none; border-radius:25px; cursor:pointer; }
+.comment-form button:hover { background:#004aad; }
+#commentMessage { display:none; color:green; margin-top:10px; text-align:center; }
+
+/* ===== CHATBOT ===== */
+.chatbot-btn { position:fixed; bottom:20px; right:20px; background:#004aad; color:#fff; width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:22px; box-shadow:0 6px 14px rgba(0,0,0,.25); }
+
+/* ===== FOOTER ===== */
+footer { background:#e9e9e9; padding:50px 20px; text-align:center; }
+.footer-inner{ display:flex; flex-direction:column; gap:18px; }
+.footer-inner a{ color:#004aad; }
+.powered{ font-weight:500; }
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .feature-grid { grid-template-columns:1fr; }
+  .review-carousel { flex-direction:column; gap:20px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="menu-icon" id="menu-toggle">☰</div>
+    <img src="logo.png" class="logo" alt="Logo">
+  </div>
+</header>
+
+<div id="overlay"></div>
+
+<!-- Sidebar menu -->
+<nav id="sidebar" class="sidebar">
+  <div class="sidebar-header">
+    <img src="logo.png" alt="Logo" class="sidebar-logo">
+  </div>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <div class="sidebar-auth">
+    <a href="login.html" class="login">Login</a>
+    <a href="login.html" class="signup">Sign Up</a>
+  </div>
+</nav>
+
+<div class="main-content">
+
+  <!-- FEATURES -->
+  <section class="features">
+    <h2>Our Features</h2>
+    <div class="feature-grid">
+      <div class="feature-card"><div class="feature-icon">🏫</div><div class="feature-title">Conducive Learning Environments</div></div>
+      <div class="feature-card"><div class="feature-icon">🔬</div><div class="feature-title">School Science Labs</div></div>
+      <div class="feature-card"><div class="feature-icon">⚽</div><div class="feature-title">Sporting Fields</div></div>
+      <div class="feature-card"><div class="feature-icon">🏀</div><div class="feature-title">Basketball Court</div></div>
+      <div class="feature-card"><div class="feature-icon">💪</div><div class="feature-title">Weekly Aerobics Activities</div></div>
+      <div class="feature-card"><div class="feature-icon">🎨</div><div class="feature-title">Club Activities</div></div>
+      <div class="feature-card"><div class="feature-icon">🎉</div><div class="feature-title">School Events (Cultural & Colours Week)</div></div>
+    </div>
+  </section>
+
+  <!-- HISTORY -->
+  <section class="history">
+    <h2>Our History</h2>
+    <p>Royal Path Schools has been nurturing young minds since 2006. We provide quality education, holistic development, and opportunities for students to excel academically, socially, and in sports.</p>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="reviews">
+    <h2>What People Say</h2>
+    <div class="review-carousel">
+      <div class="review-card">
+        <img src="avatar1.jpg" alt="Avatar">
+        <h4>John Doe</h4>
+        <p>Excellent learning environment and caring staff.</p>
+      </div>
+      <div class="review-card">
+        <img src="avatar2.jpg" alt="Avatar">
+        <h4>Jane Smith</h4>
+        <p>My children have thrived academically and socially here.</p>
+      </div>
+      <div class="review-card">
+        <img src="avatar3.jpg" alt="Avatar">
+        <h4>Michael Lee</h4>
+        <p>The sports facilities and clubs are top-notch.</p>
+      </div>
+    </div>
+
+    <!-- COMMENT FORM -->
+    <form class="comment-form" id="commentForm">
+      <h3>Leave a Comment</h3>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea placeholder="Your Comment" rows="4" required></textarea>
+      <button type="submit">Submit Comment</button>
+      <p id="commentMessage">Thank you! Your comment will be reviewed by an admin before publishing.</p>
+    </form>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <strong>Quick Links</strong><br>
+      <a href="index.html">Home</a> ·
+      <a href="about.html">About</a> ·
+      <a href="contact.html">Contact</a> ·
+      <a href="login.html">Login</a> ·
+      <a href="login.html">Sign Up</a>
+    </div>
+    <div>
+      Phone: +234 801 234 5678<br>
+      Email: info@schoolname.com<br>
+      Address: School Address, City, State
+    </div>
+    <div class="powered">
+      Powered by <a href="https://emltechstudio.site" target="_blank">EML Tech Studio</a>
+    </div>
+  </div>
+</footer>
+
+<div class="chatbot-btn" title="Chat with us">💬</div>
+
+<script>
+const menuToggle = document.getElementById('menu-toggle');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+
+// Sidebar toggle
+menuToggle.addEventListener('click', () => {
+  sidebar.classList.toggle('active');
+  overlay.classList.toggle('active');
+});
+overlay.addEventListener('click', () => {
+  sidebar.classList.remove('active');
+  overlay.classList.remove('active');
+});
+sidebar.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    sidebar.classList.remove('active');
+    overlay.classList.remove('active');
+  });
+});
+
+// Comment form
+const commentForm = document.getElementById('commentForm');
+const commentMessage = document.getElementById('commentMessage');
+commentForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    commentMessage.style.display = 'block';
+    commentForm.reset();
+});
+
+// Feature cards animation
+const features = document.querySelectorAll('.feature-card');
+const reviews = document.querySelectorAll('.review-card');
+
+function revealOnScroll() {
+  const windowHeight = window.innerHeight;
+  features.forEach(card => {
+    const top = card.getBoundingClientRect().top;
+    if(top < windowHeight - 50) card.classList.add('visible');
+  });
+  reviews.forEach(card => {
+    const top = card.getBoundingClientRect().top;
+    if(top < windowHeight - 50) card.classList.add('visible');
+  });
+}
+window.addEventListener('scroll', revealOnScroll);
+revealOnScroll(); // initial
+
+// Auto-slide reviews carousel
+const carousel = document.querySelector('.review-carousel');
+let scrollPos = 0;
+function slideReviews() {
+    scrollPos += 1;
+    if(scrollPos >= carousel.scrollWidth - carousel.clientWidth) scrollPos = 0;
+    carousel.scrollLeft = scrollPos;
+    requestAnimationFrame(slideReviews);
+}
+slideReviews();
+</script>
+</body>
+</html>

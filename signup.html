@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sign Up | Royalpath Schools</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+  background:#f4f6fb;
+  color:#222;
+}
+
+/* ===== HEADER ===== */
+header{
+  position:fixed;
+  top:0;
+  width:100%;
+  background:#fff;
+  box-shadow:0 2px 6px rgba(0,0,0,.08);
+  z-index:1000;
+}
+.header-inner{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  padding:8px 20px;
+}
+.menu-icon{font-size:22px;cursor:pointer}
+.logo{height:60px}
+
+/* ===== SIDEBAR ===== */
+.sidebar{
+  position:fixed;
+  top:0;
+  left:-250px;
+  width:240px;
+  height:100%;
+  background:#0052cc;
+  color:#fff;
+  padding-top:60px;
+  transition:.3s;
+  z-index:2000;
+}
+.sidebar.active{left:0}
+.sidebar-header{text-align:center;margin-bottom:20px}
+.sidebar-logo{max-width:80px;border-radius:20px}
+.sidebar a{
+  display:block;
+  padding:12px 16px;
+  border-bottom:1px solid rgba(255,255,255,.15);
+}
+.sidebar a:hover{background:#003a99}
+.sidebar-auth{
+  display:flex;
+  gap:6px;
+  padding:12px;
+  margin-top:auto;
+}
+.sidebar-auth a{
+  flex:1;
+  text-align:center;
+  border-radius:18px;
+  border:1px solid #fff;
+  font-size:14px;
+}
+.sidebar-auth .signup{background:#fff;color:#0052cc}
+
+/* ===== OVERLAY ===== */
+#overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.3);
+  z-index:1500;
+}
+#overlay.active{display:block}
+
+/* ===== SIGNUP CARD ===== */
+.page{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding-top:100px;
+}
+.card{
+  background:#fff;
+  width:380px;
+  padding:30px;
+  border-radius:16px;
+  box-shadow:0 15px 40px rgba(0,0,0,.12);
+}
+h2{text-align:center;color:#004aad;margin-bottom:16px}
+
+form{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+input, select{
+  padding:12px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  font-size:14px;
+}
+
+.submit-btn{
+  margin-top:8px;
+  padding:14px;
+  border:none;
+  border-radius:25px;
+  background:#004aad;
+  color:#fff;
+  cursor:pointer;
+  font-size:15px;
+}
+
+.notice{
+  font-size:13px;
+  text-align:center;
+  opacity:.75;
+  margin-top:10px;
+}
+
+.switch{
+  text-align:center;
+  margin-top:18px;
+  font-size:14px;
+}
+.switch a{
+  color:#004aad;
+  font-weight:500;
+}
+
+/* ===== FOOTER ===== */
+footer{
+  background:#004aad;
+  color:#fff;
+  padding:40px 20px;
+  text-align:center;
+}
+footer a{color:#fff;text-decoration:underline}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="menu-icon" id="menu-toggle">☰</div>
+    <img src="logo.png" class="logo" alt="Logo">
+  </div>
+</header>
+
+<!-- Sidebar menu -->
+<nav id="sidebar" class="sidebar">
+  <div class="sidebar-header">
+    <img src="logo.png" alt="Logo" class="sidebar-logo">
+  </div>
+
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+
+  <div class="sidebar-auth">
+    <a href="login.html" class="login">Login</a>
+    <a href="login.html" class="signup">Sign Up</a>
+  </div>
+</nav>
+
+<!-- Overlay -->
+<div id="overlay"></div>
+<main class="page">
+  <div class="card">
+    <h2>Create Account</h2>
+
+    <form onsubmit="demoSignup(event)">
+      <input type="text" placeholder="Full Name" required>
+      <input type="email" placeholder="Email Address" required>
+      <input type="password" placeholder="Create Password" required>
+
+      <select required>
+        <option value="">Select Role</option>
+        <option>Student</option>
+        <option>Teacher</option>
+      </select>
+
+      <button class="submit-btn">Create Account</button>
+    </form>
+
+    <div class="notice">
+      Demo mode — account approval & verification handled in production.
+    </div>
+
+    <div class="switch">
+      Already have an account?
+      <a href="login.html">Login</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  © 2026 Royalpath Schools<br>
+  Powered by <a href="https://emltechstudio.site" target="_blank">EML Tech Studio</a>
+</footer>
+
+<script>
+const menuToggle=document.getElementById('menu-toggle');
+const sidebar=document.getElementById('sidebar');
+const overlay=document.getElementById('overlay');
+
+menuToggle.onclick=()=>{sidebar.classList.toggle('active');overlay.classList.toggle('active')}
+overlay.onclick=()=>{sidebar.classList.remove('active');overlay.classList.remove('active')}
+
+function demoSignup(e){
+  e.preventDefault();
+  alert("Demo mode: Account created. Dashboard opens in production.");
+}
+</script>
+
+</body>
+</html>

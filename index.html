@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>School Website</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+/* ===== RESET & GLOBAL ===== */
+* {box-sizing:border-box;}
+body {
+  margin:0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background:#f6f6f6;
+  color:#222;
+}
+a {text-decoration:none; color:inherit;}
+
+/* ===== HEADER ===== */
+header {
+  position:fixed;
+  top:0;
+  width:100%;
+  background:#fff;
+  z-index:1000;
+  box-shadow:0 2px 6px rgba(0,0,0,.08);
+}
+
+.header-inner {
+  display:flex;
+  justify-content:flex-start;
+  align-items:center;
+  padding:8px 20px;
+  gap:20px;
+}
+
+.menu-icon {
+  font-size:22px;
+  cursor:pointer;
+}
+
+.logo {
+  height:60px;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  position: fixed;
+  top:0;
+  left:-250px;
+  width:240px;
+  height:100%;
+  background:#0052cc; /* softer blue */
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+  padding-top:60px;
+  transition:left 0.3s ease;
+  z-index:9999;
+}
+
+.sidebar-header {
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.sidebar-logo {
+  max-width:80px;
+  height:auto;
+  border-radius:20px;
+}
+
+.sidebar a {
+  padding:12px 16px;
+  font-size:16px;
+  border-bottom:1px solid rgba(255,255,255,0.15);
+  color:#fff;
+  display:block;
+}
+
+.sidebar a:hover {background:#003a99;}
+
+.sidebar.active {left:0;}
+
+/* Login/Signup buttons side by side */
+.sidebar-auth {
+  display:flex;
+  justify-content:space-around;
+  padding:12px 16px;
+  margin-top:auto;
+}
+
+.sidebar a.login, .sidebar a.signup {
+  flex:1;
+  text-align:center;
+  border-radius:18px;
+  border:1px solid #fff;
+  margin:0 2px;
+  padding:6px 0;
+  font-size:14px;
+}
+
+.sidebar a.signup {
+  background:#fff;
+  color:#0052cc;
+}
+
+/* Overlay */
+#overlay {
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.3);
+  z-index:998;
+}
+
+#overlay.active {display:block;}
+
+/* ===== HERO ===== */
+.hero{
+  margin-top:70px;
+  height:580px;
+  position:relative;
+  overflow:hidden;
+}
+
+.slide{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  animation:slideShow 20s infinite;
+}
+
+.slide:nth-child(1){background-image:url("assets/slide1.jpg")}
+.slide:nth-child(2){background-image:url("assets/slide2.jpg");animation-delay:5s}
+.slide:nth-child(3){background-image:url("assets/slide3.jpg");animation-delay:10s}
+.slide:nth-child(4){background-image:url("assets/slide4.jpg");animation-delay:15s}
+
+@keyframes slideShow{
+  0%{opacity:0}
+  5%{opacity:1}
+  25%{opacity:1}
+  30%{opacity:0}
+  100%{opacity:0}
+}
+
+.hero-overlay{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:#fff;
+}
+
+.hero-overlay h1{font-size:40px;margin-bottom:10px;}
+.hero-overlay h2{font-size:22px;font-weight:400;}
+.hero-overlay p{opacity:.9;margin:14px 0;}
+.hero-overlay a{
+  padding:12px 26px;
+  border-radius:24px;
+  background:#004aad;
+  color:#fff;
+  font-weight:500;
+}
+
+/* ===== LEVELS ===== */
+.levels{padding:70px 0;}
+.level-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:24px;
+}
+
+.card{
+  background:#fff;
+  padding:36px 26px;
+  border-radius:18px;
+  text-align:center;
+  box-shadow:0 6px 14px rgba(0,0,0,.08);
+}
+
+.card .icon{
+  font-size:34px;
+  margin-bottom:12px;
+  color:#004aad;
+}
+
+.card h3{margin:10px 0;}
+.card p{font-size:14px;opacity:.85;}
+
+.center-card{
+  grid-column:1/-1;
+  background:#004aad;
+  color:#fff;
+  padding:40px;
+  border-radius:22px;
+  text-align:center;
+  font-size:18px;
+}
+
+/* ===== CHATBOT ===== */
+.chatbot-btn{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#004aad;
+  color:#fff;
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  box-shadow:0 6px 14px rgba(0,0,0,.25);
+}
+
+/* ===== FOOTER ===== */
+footer {
+  background:#004aad;
+  color:white;
+  padding:50px 20px;
+  margin-top:60px;
+  text-align:center;
+}
+
+.footer-inner { display:flex; flex-direction:column; gap:18px; text-align:center; }
+.footer-inner a { color:#fff; text-decoration:underline; }
+.powered { font-weight:500; }
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .level-grid{grid-template-columns:1fr;}
+  .hero-overlay h1{font-size:28px;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="menu-icon" id="menu-toggle">☰</div>
+    <img src="logo.png" class="logo" alt="Logo">
+  </div>
+</header>
+
+<!-- Sidebar menu -->
+<nav id="sidebar" class="sidebar">
+  <div class="sidebar-header">
+    <img src="logo.png" alt="Logo" class="sidebar-logo">
+  </div>
+
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+
+  <div class="sidebar-auth">
+    <a href="login.html" class="login">Login</a>
+    <a href="login.html" class="signup">Sign Up</a>
+  </div>
+</nav>
+
+<!-- Overlay -->
+<div id="overlay"></div>
+
+<section class="hero">
+  <div class="slide"></div>
+  <div class="slide"></div>
+  <div class="slide"></div>
+  <div class="slide"></div>
+
+  <div class="hero-overlay">
+    <div>
+      <h1>Royalpath Schools</h1>
+      <h2>Modding Future Leaders</h2>
+      <p>Structured Learning Environment for Excellence</p>
+      <a href="about.html">About Us</a>
+    </div>
+  </div>
+</section>
+
+<section class="levels">
+  <div class="container">
+    <div class="level-grid">
+      <div class="card"><div class="icon">🎓</div><h3>Nursery</h3><p>Moral & preparatory classes</p></div>
+      <div class="card"><div class="icon">📘</div><h3>Primary School</h3><p>Fundamental and basic education</p></div>
+      <div class="card"><div class="icon">📚</div><h3>Junior Secondary</h3><p>Science, arts & commercial foundation</p></div>
+      <div class="card"><div class="icon">🏅</div><h3>Senior Secondary</h3><p>Departmental academic excellence</p></div>
+      <div class="center-card">🏆 WAEC & NECO Registered<br>Proven Academic Excellence</div>
+    </div>
+  </div>
+</section>
+
+<div class="chatbot-btn" title="Chat with us">💬</div>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <strong>Quick Links</strong><br>
+      <a href="index.html">Home</a> ·
+      <a href="about.html">About</a> ·
+      <a href="contact.html">Contact</a> ·
+      <a href="login.html">Login</a> ·
+      <a href="login.html">Sign Up</a>
+    </div>
+    <div>
+      Phone: +234 801 234 5678<br>
+      Email: info@schoolname.com<br>
+      Address: School Address, City, State
+    </div>
+    <div class="powered">
+      Powered by <a href="https://emltechstudio.site" target="_blank">EML Tech Studio</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const menuToggle = document.getElementById('menu-toggle');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+
+menuToggle.addEventListener('click', () => {
+  sidebar.classList.toggle('active');
+  overlay.classList.toggle('active');
+});
+
+overlay.addEventListener('click', () => {
+  sidebar.classList.remove('active');
+  overlay.classList.remove('active');
+});
+
+sidebar.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    sidebar.classList.remove('active');
+    overlay.classList.remove('active');
+  });
+});
+</script>
+</body>
+</html>
